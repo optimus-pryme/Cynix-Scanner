@@ -183,7 +183,7 @@
         <widget class="QPushButton" name="exitAppButton">
          <property name="geometry">
           <rect>
-           <x>690</x>
+           <x>740</x>
            <y>10</y>
            <width>71</width>
            <height>51</height>
@@ -232,6 +232,32 @@
           </size>
          </property>
         </widget>
+        <widget class="QPushButton" name="WebEnum_Button">
+         <property name="geometry">
+          <rect>
+           <x>630</x>
+           <y>10</y>
+           <width>71</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icons/NDMS.qrc">
+           <normaloff>:/Icons/icons8-broken-link-64.png</normaloff>:/Icons/icons8-broken-link-64.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+        </widget>
        </widget>
        <widget class="QTabWidget" name="scanOutput_Tab">
         <property name="geometry">
@@ -246,7 +272,7 @@
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="scanoption_tab">
          <attribute name="title">
@@ -463,7 +489,7 @@
              </rect>
             </property>
             <property name="text">
-             <string>Enable IPv6</string>
+             <string>save scan</string>
             </property>
            </widget>
            <widget class="QCheckBox" name="portchanger_checkBox">
