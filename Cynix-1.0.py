@@ -588,11 +588,9 @@ class Ui_MainWindow(object):
         self.scanThread1.started.connect(self.scanObject.run)
         self.scanResult_TextEdit.clear()
         
-        if not self.scanThread1.isFinished:
-            print('sorry a scan is still in progress')
-        else:
-            self.scanResult_TextEdit.insertPlainText('Port Scanning in Progress. Please wait.......')
-            self.scanThread1.start()
+        self.scanThread1.isFinished
+        self.scanResult_TextEdit.insertPlainText('Port Scanning in Progress. Please wait.......')
+        self.scanThread1.start()
     
     def osintScan(self):
         print('osint button clicked')
@@ -687,7 +685,7 @@ class OsintScans(QtCore.QObject):
 class crtshAPI(QtCore.QObject):
     """crtshAPI main handler."""
     finished        = QtCore.pyqtSignal() # Determine if scan is finished
-    sendSubResult  = QtCore.pyqtSignal(list) #Emit scan results
+    sendSubResult  = QtCore.pyqtSignal(set) #Emit scan results
     errors          = QtCore.pyqtSignal(str) # Emit errors
 
     def __init__(self,domain):
@@ -718,7 +716,7 @@ class crtshAPI(QtCore.QObject):
                 subdomains = []
                 for i in data:
                     subdomains.append(i['common_name'])
-                self.sendSubResult.emit(subdomains)
+                self.sendSubResult.emit(set(subdomains))
                 self.finished.emit()
                 app.processEvents()
                 QtWidgets.QApplication.sendPostedEvents()                
@@ -785,7 +783,7 @@ class Scans(QtCore.QObject):
         def run(self):
             try: 
                #if user is root or admininistrator
-                if True:
+                if self.is_root:
                     # If no Flags and Scripts were selected
                     if  (not self.scanFlag) and  (not self.scriptType):  
                         if self.portErrror == True:
@@ -909,7 +907,7 @@ class Scans(QtCore.QObject):
                             brute = ''
 
                         # Performs this scan if only the save button is selected
-                        if save or  frag or evader or randomer:
+                        if save or  frag or evader or randomer or self.scriptType:
                             if self.portErrror == True:
                                 self.WarningMessage(self.errorMessage)
                                 app.processEvents()
@@ -1014,8 +1012,7 @@ class Scans(QtCore.QObject):
                                             e=exploit,
                                             d=default,
                                             a=auth
-                                        ),
-                                         
+                                        ),    
                                     ], 
                                     stdout=PIPE,
                                     stderr=PIPE)
